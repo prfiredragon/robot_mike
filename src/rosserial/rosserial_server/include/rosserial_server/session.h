@@ -499,7 +499,7 @@ private:
   }
 
 
-  void handle_time(ros::serialization::IStream& stream) {
+  void handle_time(ros::serialization::IStream& stream&) {
     std_msgs::Time time;
     time.data = ros::Time::now();
 
