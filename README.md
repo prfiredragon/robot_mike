@@ -23,6 +23,7 @@ My own robot experiment with ROS
 
 * [ROS](http://wiki.ros.org/)
 * [image_geometry](http://wiki.ros.org/image_geometry)
+* [Libfreenect](https://github.com/ros-drivers/libfreenect)
 
 ### **Included:**
 
@@ -34,7 +35,8 @@ My own robot experiment with ROS
 1. install ROS
 2. run `git clone https://github.com/prfiredragon/robot_mike`
 3. run `cd robot_mike`
-4. run `sudo apt-get install ros-melodic-image-geometry`
+4. install [libfreenect](https://github.com/ros-drivers/libfreenect)
+   - for ubuntu 18.04 needs `sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev`
 5. run `sudo apt-get install ros-melodic-image-transport`
 6; run `rosdep install --from-paths src --ignore-src -r -y'
 7. run `catkin_make`
