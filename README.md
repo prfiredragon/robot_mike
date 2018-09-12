@@ -35,6 +35,7 @@ My own robot experiment with ROS
 3. run `cd robot_mike`
 4. run `sudo apt-get install ros-melodic-image-geometry`
 5. run `sudo apt-get install ros-melodic-image-transport`
-6. run `catkin_make`
-7. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
-8. run `source ~/.bashrc`
+6; run `rosdep install --from-paths src --ignore-src -r -y'
+7. run `catkin_make`
+8. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
+9. run `source ~/.bashrc`

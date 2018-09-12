@@ -98,7 +98,7 @@ typedef boost::shared_ptr<Publisher> PublisherPtr;
 class Subscriber {
 public:
   Subscriber(ros::NodeHandle& nh, rosserial_msgs::TopicInfo& topic_info,
-      boost::function<void(std::vector<uint8_t>& buffer)> write_fn)
+      boost::function<void(std::vector<uint8_t> buffer)> write_fn)
     : write_fn_(write_fn) {
     ros::SubscribeOptions opts;
     opts.init<topic_tools::ShapeShifter>(
