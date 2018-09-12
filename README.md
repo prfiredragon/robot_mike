@@ -32,7 +32,7 @@ My own robot experiment with ROS
 1. install ROS
 2. run `git clone https://github.com/prfiredragon/robot_mike`
 3. run `cd robot_mike`
-4. run `catkin_make`
-5. run `sudo apt-get install ros-melodic-image-geometry`
+4. run `sudo apt-get install ros-melodic-image-geometry`
+5. run `catkin_make`
 6. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
 7. run `source ~/.bashrc`
