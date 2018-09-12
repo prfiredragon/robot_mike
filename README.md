@@ -28,6 +28,7 @@ My own robot experiment with ROS
 
 * [depthimage_to_laserscan](https://github.com/ros-perception/depthimage_to_laserscan)
 * [rosserial](https://github.com/ros-drivers/rosserial)
+* [freenect](https://github.com/ros-drivers/freenect_stack)
 
 ## **Software Instructions**
 1. install ROS
