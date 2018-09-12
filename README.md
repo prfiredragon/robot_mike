@@ -26,8 +26,8 @@ My own robot experiment with ROS
 
 ### **Included:**
 
-* depthimage_to_laserscan
-* rosserial
+* [depthimage_to_laserscan](https://github.com/ros-perception/depthimage_to_laserscan)
+* [rosserial](https://github.com/ros-drivers/rosserial)
 
 ## **Software Instructions**
 1. install ROS
