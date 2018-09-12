@@ -14,7 +14,7 @@ find_package(catkin REQUIRED
 # Resolve system dependency on libfreenect, which does not provide a
 # CMake find_package() module.
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(LIBFREENECT REQUIRED libfreenect-dev)
+pkg_check_modules(LIBFREENECT REQUIRED libfreenect)
 pkg_check_modules(LOG4CXX REQUIRED liblog4cxx)
 
 find_library(LIBFREENECT_LIBRARY
@@ -52,7 +52,7 @@ target_link_libraries(freenect_nodelet
 add_dependencies(freenect_nodelet ${PROJECT_NAME}_gencfg)
 
 catkin_package(DEPENDS
-               libfreenect-dev
+               libfreenect
                CATKIN_DEPENDS
                camera_info_manager
                diagnostic_updater
