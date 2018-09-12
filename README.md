@@ -22,6 +22,7 @@ My own robot experiment with ROS
 ### **Not Included:**
 
 * ROS
+* image_geometry
 
 ### **Included:**
 
