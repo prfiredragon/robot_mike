@@ -21,8 +21,8 @@ My own robot experiment with ROS
 
 ### **Not Included:**
 
-* ROS
-* image_geometry
+* [ROS](http://wiki.ros.org/)
+* [image_geometry](http://wiki.ros.org/image_geometry)
 
 ### **Included:**
 
@@ -34,6 +34,7 @@ My own robot experiment with ROS
 2. run `git clone https://github.com/prfiredragon/robot_mike`
 3. run `cd robot_mike`
 4. run `sudo apt-get install ros-melodic-image-geometry`
-5. run `catkin_make`
-6. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
-7. run `source ~/.bashrc`
+5. run `sudo apt-get install ros-melodic-image-transport`
+6. run `catkin_make`
+7. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
+8. run `source ~/.bashrc`
