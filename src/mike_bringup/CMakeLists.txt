@@ -7,6 +7,7 @@ project(mike_bringup)
 find_package(catkin REQUIRED COMPONENTS
   depthimage_to_laserscan
   rosserial_python
+  freenect_launch
 )
 
 ## System dependencies are found with CMake's conventions
@@ -101,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES mike_bringup
-#  CATKIN_DEPENDS depthimage_to_laserscan rosserial_python
+#  CATKIN_DEPENDS depthimage_to_laserscan rosserial_python freenect_launch
 #  DEPENDS system_lib
 )
 
