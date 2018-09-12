@@ -1,4 +1,4 @@
-# robot_mike
+# **Robot Mike**
 My own robot experiment with ROS
 
 ## **Status:** Currently working on the wheels.
@@ -16,3 +16,14 @@ My own robot experiment with ROS
 * Cytron 10A 5-30V Dual Channel DC Motor Driver (RB-Cyt-153)
 * Stepper Motor Mounting Bracket (NEMA 17) (RB-Phi-273)
 * 2x 6mm Set Screw Hub (RB-Nex-17)
+
+## **Software:**
+
+### **Not Included:**
+
+* ROS
+
+### **Included:**
+
+* depthimage_to_laserscan
+* rosserial
