@@ -1,7 +1,9 @@
 <launch>
 
   <!-- Run Kinect -->
-  <include file="$(find mike_bringup)/launch/kinect_laser.launch" />
+  <include file="$(find mike_bringup)/launch/kinect_laser.launch">
+        <arg name="robotname" default="Mike"/>
+    </include>
 
   <!--serial communication between arduino and pc via usb /-->
   <node name="arduino_serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
