@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Run Kinect -->
+  <include file="$(find mike_bringup)/launch/kinect_laser.launch" />
+
+  <!--serial communication between arduino and pc via usb /-->
+  <node name="arduino_serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
+    <param name="port" value="/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_6493330373235170D010-if00" />
+    <param name="baud" value="57600" />
+  </node>
+
+
+
+  <node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
+	<param name="robot" type="string" value="Mike" />
+  </node>
+
+</launch>
