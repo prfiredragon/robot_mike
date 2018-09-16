@@ -24,6 +24,7 @@ My own robot experiment with ROS
 * [ROS](http://wiki.ros.org/)
 * [image_geometry](http://wiki.ros.org/image_geometry)
 * [Libfreenect](https://github.com/ros-drivers/libfreenect)
+* [joint_state_publisher](http://wiki.ros.org/joint_state_publisher)
 
 ### **Included:**
 
