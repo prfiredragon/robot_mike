@@ -41,7 +41,7 @@ My own robot experiment with ROS
 4. install [libfreenect](https://github.com/ros-drivers/libfreenect)
    - for ubuntu 18.04 needs `sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev`
 5. run `sudo apt-get install ros-melodic-image-transport`
-6. run `rosdep install --from-paths src --ignore-src -r -y'
+6. run `rosdep install --from-paths src --ignore-src -r -y`
 7. run `catkin_make`
 8. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
 9. run `source ~/.bashrc`
