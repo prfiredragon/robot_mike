@@ -10,10 +10,14 @@
   </node>
 
 
-  <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf" />
+  <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" />
 
   <node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
 	<param name="robot" type="string" value="Mike" />
   </node>
+
+  <include file="$(find mike_bringup)/launch/display-robot.launch" >
+        <arg name="model" default="$(find mike_description)urdf/mike.urdf"/>
+    </include>
 
 </launch>
