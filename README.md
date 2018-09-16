@@ -46,6 +46,7 @@ My own robot experiment with ROS
    - for ubuntu 18.04 needs `sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev`
 5. run `sudo apt-get install ros-melodic-image-transport`
 6. install [rtabmap](https://github.com/introlab/rtabmap/wiki/Installation)
+   - for odroid-c2 [follow this instructions](https://github.com/prfiredragon/robot_mike/wiki/RTABMAP-ODROID-C2)
 7. run `rosdep install --from-paths src --ignore-src -r -y`
 8. run `catkin_make`
 9. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
