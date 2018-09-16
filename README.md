@@ -26,6 +26,7 @@ My own robot experiment with ROS
 * [Libfreenect](https://github.com/ros-drivers/libfreenect)
 * [joint_state_publisher](http://wiki.ros.org/joint_state_publisher)
 * [robot_state_publisher](http://wiki.ros.org/robot_state_publisher)
+* [rtabmap](http://wiki.ros.org/rtabmap)
 
 ### **Included:**
 

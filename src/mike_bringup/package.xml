@@ -46,6 +46,7 @@
   <run_depend>depthimage_to_laserscan</run_depend>
   <run_depend>rosserial_python</run_depend>
   <run_depend>freenect_launch</run_depend>
+  <run_depend>rtabmap</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
