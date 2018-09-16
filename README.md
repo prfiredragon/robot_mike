@@ -38,16 +38,5 @@ My own robot experiment with ROS
 * [rtabmap_ros](https://github.com/introlab/rtabmap_ros)
 * [octomap_ros](https://github.com/OctoMap/octomap_ros)
 
-## **Software Instructions**
-1. install ROS
-2. run `git clone https://github.com/prfiredragon/robot_mike`
-3. run `cd robot_mike`
-4. install [libfreenect](https://github.com/ros-drivers/libfreenect)
-   - for ubuntu 18.04 needs `sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev`
-5. run `sudo apt-get install ros-melodic-image-transport`
-6. install [rtabmap](https://github.com/introlab/rtabmap/wiki/Installation)
-   - for odroid-c2 [follow this instructions](https://github.com/prfiredragon/robot_mike/wiki/RTABMAP-ODROID-C2)
-7. run `rosdep install --from-paths src --ignore-src -r -y`
-8. run `catkin_make`
-9. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
-10. run `source ~/.bashrc`
+### **Software Instructions**
+* Check the [Install](https://github.com/prfiredragon/robot_mike/wiki/INSTALL) instructions.
