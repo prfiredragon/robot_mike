@@ -1,7 +1,11 @@
 <launch>
 
   <!-- Run Kinect -->
-  <include file="$(find mike_bringup)/launch/kinect_laser.launch" />
+  <!-- include file="$(find mike_bringup)/launch/kinect_laser.launch" / -->
+	
+  <include file="$(find mike_bringup)/launch/freenect_throttle.launch">
+     <arg name="rate" value="5" />
+  </include>
 
   <!--serial communication between arduino and pc via usb /-->
   <node name="arduino_serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
