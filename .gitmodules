@@ -1,0 +1,9 @@
+[submodule "src/src/octomap_ros"]
+	path = src/src/octomap_ros
+	url = https://github.com/OctoMap/octomap_ros
+[submodule "src/octomap_ros"]
+	path = src/octomap_ros
+	url = https://github.com/OctoMap/octomap_ros
+[submodule "src/rtabmap_ros"]
+	path = src/rtabmap_ros
+	url = https://github.com/introlab/rtabmap_ros
