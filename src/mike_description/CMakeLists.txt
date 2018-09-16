@@ -128,14 +128,16 @@ include_directories(
 ## Declare a C++ executable
 # add_executable(mike_description_node src/mike_description_node.cpp)
 
+add_executable(parser src/parser.cpp)
+
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(mike_description_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(mike_description_node
-#   ${catkin_LIBRARIES}
-# )
+ target_link_libraries(parser
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##

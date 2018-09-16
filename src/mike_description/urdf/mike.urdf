@@ -1,3 +1,173 @@
+<?xml version="1.0"?>
 <robot name="Mike">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.34925 0.34925 0.1016"/>
+      </geometry>
+      <material name="any">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="neck">
+    <visual>
+      <geometry>
+        <box size="1.143 .0889 .0889"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.5715"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_to_neck" type="fixed">
+    <parent link="base_link"/>
+    <child link="neck"/>
+    <origin xyz="0 0 -0.0508"/>
+  </joint>
+
+  <link name="kinect_holder">
+    <visual>
+      <geometry>
+        <box size="0.127 .3302 .1778"/>
+      </geometry>
+      <origin rpy="1.57075 1.57075 0" xyz="0 0 1.2065"/>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="neck_to_kinect_holder_holder" type="fixed">
+    <parent link="neck"/>
+    <child link="kinect_holder"/>
+    <!-- origin xyz="0.22 0 .25"/ -->
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.0762 0.2794 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="kinect_holder_holder_to_camera_link" type="fixed">
+    <parent link="kinect_holder"/>
+    <child link="camera_link"/>
+      <origin rpy="0 0 1.57075" xyz="0 0 1.3081"/>
+  </joint>
+
+  <link name="front_wheel_holder">
+    <visual>
+      <geometry>
+        <box size="0.0381 .0381 .05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_front_wheel_holder" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_wheel_holder"/>
+    <!-- origin xyz="0.22 0 .25"/ -->
+     <origin rpy="0 0 0" xyz="0 -0.127 -0.0635"/>
+  </joint>
+
+  <link name="front__wheel">
+    <visual>
+      <geometry>
+        <cylinder length=".04" radius="0.0381"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="front__wheel_joint" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="front_wheel_holder"/>
+    <child link="front__wheel"/>
+    <origin rpy="0 1.57075 0" xyz="0 0 -0.0508"/>
+    <limit effort="100" velocity="10"/>
+  </joint>
+
+  <link name="right_leg">
+    <visual>
+      <geometry>
+        <box size="0.0254 .0254 .06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -0.02"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_right_leg" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_leg"/>
+    <!-- origin xyz="0.22 0 .25"/ -->
+    <origin rpy="0 1.57075 0" xyz="0.1905 0.127 -0.0762"/>
+  </joint>
+
+  <link name="right__wheel">
+    <visual>
+      <geometry>
+        <cylinder length=".0254" radius="0.0762"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="right__wheel_joint" type="continuous">
+    <axis xyz="0 0 1"/>
+    <parent link="right_leg"/>
+    <child link="right__wheel"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <limit effort="100" velocity="10"/>
+  </joint>
+
+
+  <joint name="base_to_left_leg" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_leg"/>
+    <!-- origin xyz="-0.22 0 .25"/ -->
+    <origin rpy="0 1.57075 0" xyz="-0.1905 0.127 -0.0762"/>
+  </joint>
+
+  <link name="left_leg">
+    <visual>
+      <geometry>
+        <box size="0.0254 .0254 .06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.02"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <link name="left_wheel">
+    <visual>
+      <geometry>
+        <cylinder length=".0254" radius="0.0762"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="left_wheel_to_left_leg" type="continuous">
+    <!-- axis xyz="0 0 1"/ -->
+    <parent link="left_leg"/>
+    <child link="left_wheel"/>
+    <origin rpy="0 0 0" xyz="0 0.0 0"/>
+    <limit effort="100" velocity="10"/>
+  </joint>
 
 </robot>

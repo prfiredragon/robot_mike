@@ -1,3 +1,7 @@
 <launch>
   <node name="teleop" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/>
+
+  <include file="$(find mike_bringup)/launch/display.launch" >
+        <arg name="model" default="$(find mike_description)urdf/mike.urdf"/>
+    </include>
 </launch>

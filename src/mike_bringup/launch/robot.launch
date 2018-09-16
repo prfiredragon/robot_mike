@@ -10,6 +10,7 @@
   </node>
 
 
+  <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf" />
 
   <node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
 	<param name="robot" type="string" value="Mike" />
