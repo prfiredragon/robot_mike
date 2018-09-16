@@ -27,7 +27,6 @@ My own robot experiment with ROS
 * [joint_state_publisher](http://wiki.ros.org/joint_state_publisher)
 * [robot_state_publisher](http://wiki.ros.org/robot_state_publisher)
 * [rtabmap](http://wiki.ros.org/rtabmap)
-* [rtabmap_ros](https://github.com/introlab/rtabmap_ros)
 
 ### **Included:**
 
@@ -36,6 +35,8 @@ My own robot experiment with ROS
 * [freenect](https://github.com/ros-drivers/freenect_stack)
 * [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard)
 * android code based on [UWU_Bot](http://wiki.ros.org/UWU_Bot) and [Southern Bolt](https://www.youtube.com/watch?v=n1W4RJFM0EU) code
+* [rtabmap_ros](https://github.com/introlab/rtabmap_ros)
+* [octomap_ros](https://github.com/OctoMap/octomap_ros)
 
 ## **Software Instructions**
 1. install ROS
