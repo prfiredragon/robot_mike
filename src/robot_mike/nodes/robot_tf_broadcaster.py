@@ -11,12 +11,12 @@ def handle_robot_pose(msg, robotname) :
                       tf.transformations.quaternion_from_euler(0, 0, msg.yheta),
                       rospy.Time.now(),
                       robotname,
-                      "world")
+                      "map")
 
 if __name__ == '__main__' :
     rospy.init_node('robot_tf_broadcaster')
     robotname = rospy.get_param('~robot')
-    rospy.Subscriber('/%s/pose' % robotname,
+    rospy.Subscriber('/%s/goal_out/pose' % robotname,
                      robot_mike.msg.Pose, 
                      handle_robot_pose,
                      robotname)
