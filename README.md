@@ -35,15 +35,8 @@ My own robot experiment with ROS
 * [freenect](https://github.com/ros-drivers/freenect_stack)
 * [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard)
 * android code based on [UWU_Bot](http://wiki.ros.org/UWU_Bot) and [Southern Bolt](https://www.youtube.com/watch?v=n1W4RJFM0EU) code
+* [rtabmap_ros](https://github.com/introlab/rtabmap_ros)
+* [octomap_ros](https://github.com/OctoMap/octomap_ros)
 
-## **Software Instructions**
-1. install ROS
-2. run `git clone https://github.com/prfiredragon/robot_mike`
-3. run `cd robot_mike`
-4. install [libfreenect](https://github.com/ros-drivers/libfreenect)
-   - for ubuntu 18.04 needs `sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev`
-5. run `sudo apt-get install ros-melodic-image-transport`
-6. run `rosdep install --from-paths src --ignore-src -r -y`
-7. run `catkin_make`
-8. run `echo "source /path to robot_mike/setup.bash" >> ~/.bashrc`
-9. run `source ~/.bashrc`
+### **Software Instructions**
+* Check the [Install](https://github.com/prfiredragon/robot_mike/wiki/INSTALL) instructions.
