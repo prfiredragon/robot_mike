@@ -65,6 +65,24 @@
       <origin rpy="0 0 1.57075" xyz="0 0 1.3081"/>
   </joint>
 
+  <link name="odom">
+    <visual>
+      <geometry>
+        <box size="0.0762 0.2794 0.0762"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="odom_to_camera_link" type="fixed">
+    <parent link="camera_link"/>
+    <child link="odom"/>
+      <!-- origin rpy="0 0 1.57075" xyz="0 0 1.3081"/ -->
+  </joint>
+
   <link name="front_wheel_holder">
     <visual>
       <geometry>
