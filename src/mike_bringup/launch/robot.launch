@@ -1,19 +1,46 @@
+<?xml version="1.0"?>
+
 <launch>
+ <group ns="mike">
 
   <!-- Run Kinect -->
+    <!-- start sensor-->
+    <include file="$(find freenect_launch)/launch/freenect.launch">
+        <arg name="camera" value="camera"/>
+        <arg name="depth_registration" value="true" />
+        <arg name="publish_tf" value="false" />
+        <arg name="data_skip" value="3"/>
+
+    </include>
+
   <!-- include file="$(find mike_bringup)/launch/kinect_laser.launch" / -->
 	
-  <include file="$(find mike_bringup)/launch/freenect_throttle.launch">
+  <!--include file="$(find mike_bringup)/launch/freenect_throttle.launch">
      <arg name="rate" value="5" />
+  </include-->
+
+  <!-- include file="$(find mike_bringup)/launch/sensor_fusion_kinect_brick.launch" -->
+    <!-- arg name="uid" value="6xDEo7"/ -->
+  <!-- /include -->
+
+  <!-- DEPTH to LASERSCAN  -->
+  <include file="$(find mike_bringup)/launch/depth_laserscan.launch">
+    <arg name="camera" value="camera" />
+    <arg name="scan_topic" value="/mike/scan"/>
+    <arg name="depth" value="depth_registered"/>
+
   </include>
 
   <!--serial communication between arduino and pc via usb /-->
+
   <node name="arduino_serial_node" pkg="rosserial_python" type="serial_node.py" output="screen">
     <param name="port" value="/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_6493330373235170D010-if00" />
     <param name="baud" value="57600" />
   </node>
 
 
+
+ <!-- URDF and TF-->
   <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" />
 
   <node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
@@ -24,40 +51,20 @@
         <arg name="model" default="$(find mike_description)urdf/mike.urdf"/>
     </include>
 
+  <arg name="pi/2" value="1.5707963267948966" />
+      <arg name="optical_rotate" value="0 0 0 0 0 0" />
+
+      <!--arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" /-->
+  <node pkg="tf" type="static_transform_publisher" name="optical_rotation"
+        args="$(arg optical_rotate) /camera_link /camera_rgb_optical_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="camdeth_rotation"
+        args="$(arg optical_rotate) /camera_link /camera_depth_frame 100" />
 
 
+  <!-- RTABMAP -->
+
+  <include file="$(find mike_bringup)/launch/rtabmap_robot.launch" />
 
 
-  <group ns="rtabmap">
-
-    <!-- Odometry -->
-    <node pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen">
-      <remap from="rgb/image"       to="/camera/rgb/image_rect_color"/>
-      <remap from="depth/image"     to="/camera/depth_registered/image_raw"/>
-      <remap from="rgb/camera_info" to="/camera/depth_registered/camera_info"/>
-
-      <param name="frame_id" type="string" value="base_link"/>
-    </node>
-    
-
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start" >
-          <param name="frame_id" type="string" value="base_link"/>
-          <param name="subscribe_depth" type="bool" value="true"/>
-
-          <remap from="odom" to="odom"/>
-          <remap from="rgb/image" to="/camera/rgb/image_rect_color"/>
-          <remap from="depth/image" to="/camera/depth_registered/image_raw"/>
-          <remap from="rgb/camera_info" to="/camera/rgb/camera_info"/>
-
-          <param name="queue_size" type="int" value="10"/>
-
-          <!-- RTAB-Map's parameters -->
-          <param name="RGBD/AngularUpdate" type="string" value="0.01"/>
-          <param name="RGBD/LinearUpdate" type="string" value="0.01"/>
-          <param name="Rtabmap/TimeThr" type="string" value="700"/>
-          <param name="Mem/RehearsalSimilarity" type="string" value="0.45"/>
-          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true"/>
-    </node>
- 
-  </group>
+ </group>
 </launch>
