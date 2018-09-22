@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
- <group ns="mike">
+ <!--group ns="mike"-->
 
   <!-- Run Kinect -->
     <!-- start sensor-->
@@ -26,7 +26,7 @@
   <!-- DEPTH to LASERSCAN  -->
   <include file="$(find mike_bringup)/launch/depth_laserscan.launch">
     <arg name="camera" value="camera" />
-    <arg name="scan_topic" value="/mike/scan"/>
+    <arg name="scan_topic" value="/scan"/>
     <arg name="depth" value="depth_registered"/>
 
   </include>
@@ -52,13 +52,13 @@
     </include>
 
   <arg name="pi/2" value="1.5707963267948966" />
-      <arg name="optical_rotate" value="0 0 0 0 0 0" />
+      <arg name="optical_rotateB" value="0 0 0 0 0 0" />
 
-      <!--arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" /-->
+      <arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" />
   <node pkg="tf" type="static_transform_publisher" name="optical_rotation"
         args="$(arg optical_rotate) /camera_link /camera_rgb_optical_frame 100" />
   <node pkg="tf" type="static_transform_publisher" name="camdeth_rotation"
-        args="$(arg optical_rotate) /camera_link /camera_depth_frame 100" />
+        args="$(arg optical_rotateB) /camera_link /camera_depth_frame 100" />
 
 
   <!-- RTABMAP -->
@@ -66,5 +66,5 @@
   <include file="$(find mike_bringup)/launch/rtabmap_robot.launch" />
 
 
- </group>
+ <!--/group-->
 </launch>
