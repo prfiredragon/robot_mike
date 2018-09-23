@@ -17,6 +17,7 @@
   </node>
 
 
+  <include file="$(find mike_bringup)/launch/mike_differential_drive.launch" />
 
  <!-- URDF and TF-->
   <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" />
