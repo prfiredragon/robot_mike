@@ -199,6 +199,8 @@ void setup(){
 
 void loop(){
 
+    	msg_debug.data = debug_str;
+    	debug_pub.publish( &msg_debug );
   //msg_lwheel.data = lcoder;
   //msg_rwheel.data = rcoder;
 
