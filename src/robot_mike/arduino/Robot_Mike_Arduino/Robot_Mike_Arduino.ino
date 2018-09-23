@@ -11,81 +11,178 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////                                                                                                              ////
-////                    Author    :     RATHNAYAKE HGHB                                                           ////
-////                                                                                                              ////
-////                    Department:     SCIENCE & TECHNOLOGY                                                      ////
-////                                                                                                              ////
-////                    Faculty   :     SCIENCE & TECHNOLOGY                                                      ////
-////                                                                                                              ////
-////                    Institute :     UVA WELLASSA UNIVERSITY OF SRI LANKA                                      ////
-////                                                                                                              ////               
-////                    File Name :     UWU_BOT.INO, SUPPORT FOR ROSSERIAL                                        ////
-////                                                                                                              ////
-////                    Project   :     MODELING 3D ENVIRONMENT USING ROS, KINECT & ARDUINO                       ////
-////                                                                                                              ////
-////                    Credits   :     PIYATHILAKA JMLC, EKANAYAKE RMTCB, ROSSERIAL TEAM                         ////
-////                                                                                                              ////
-////                    E-mail    :     HASITHARATHNAYAKE@LIVE.COM                                                ////
-////                                                                                                              ////
-////                    Phone     :     +94711222022                                                              ////
-////                                                                                                              ////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                        //
-//     Copyright (c) 2014, HasithaBR, Uva Wellassa University                                                             //  
-//     All rights reserved.                                                                                               //
-//                                                                                                                        //
-//     Redistribution and use in source and binary forms, with or without modification, are permitted provided that the   //
-//     following conditions are met:                                                                                      //
-//                                                                                                                        //
-//      * Redistributions of source code must retain the above copyright notice, this list of conditions and the          //
-//        following disclaimer.                                                                                           //
-//      * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the       //
-//        following disclaimer in the documentation and/or other materials provided with the distribution.                //
-//      * Neither the name of Uva Wellassa University nor the names of its contributors may be used to endorse or promote //
-//        products derived from this software without specific prior written permission.                                  //
-//                                                                                                                        //
-//     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, //
-//     INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE  //
-//     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,  //
-//     SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR    //
-//     SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,  //
-//     WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE   //
-//     USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                                           //
-//                                                                                                                        //
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //#include <Time.h>
 #include <ros.h>
-#include <geometry_msgs/Twist.h>
+#include <std_msgs/String.h>
+#include <std_msgs/Int16.h>
+#include <std_msgs/Float32.h>
+#include <Time.h>
 
 #define LDir 10
 #define LPWM 11
 #define RDir 12
 #define RPWM 9
 
+
 ros::NodeHandle nh;
 
-float linX=0,angZ=0,Dis=0;              // Initiallize global variables that handles linear and angular velocities here
+std_msgs::String msg_debug;
+ros::Publisher debug_pub("arduino_debug", &msg_debug);
+std_msgs::Int16 msg_lwheel;
+std_msgs::Int16 msg_rwheel;
+
+ros::Publisher lwheel_pub("lwheel", &msg_lwheel);
+ros::Publisher rwheel_pub("rwheel", &msg_rwheel);
+
+char debug_str[80] = "blank";
+
+
 long time=0;
 //int pi=3.141592654;
 //int diameter=0.1524;
 //int circumference=0;
 
-void messageVel(const geometry_msgs::Twist& msg){
-  linX = msg.linear.x;                  // Linear velocity component of received twist message
-  angZ = msg.angular.z;                 // Angular velocity component of received twist message
+
+
+
+//////////////////////////////////////////////////////////////////////
+                               LEFT
+//////////////////////////////////////////////////////////////////////
+
+void lfwd(int speed=255) {
+	sprintf(debug_str, "lfwd %d", speed);
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+
+      analogWrite(LPWM, constrain( speed, 0, 255 ));
+      digitalWrite(LDir, LOW);
+
 }
 
-ros::Subscriber<geometry_msgs::Twist> Robot_Mike("cmd_vel", &messageVel);  // Keyboard teleoperation velocity commander
+
+void lrev(int speed=255) {
+	sprintf(debug_str, "lrev %d", speed);
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(LPWM, constrain(speed, 0, 255 ));
+      digitalWrite(LDir, HIGH);
+
+}
+
+void lcoast() {
+	sprintf(debug_str, "lcoast");
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(LPWM, 0);
+      digitalWrite(LDir, HIGH);
+}
+
+void lbrake() {
+	sprintf(debug_str, "lbrake");
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(LPWM, 0);
+      digitalWrite(LDir, LOW);
+}
+
+
+
+//////////////////////////////////////////////////////////////////////
+                               RIGHT
+//////////////////////////////////////////////////////////////////////
+
+void rfwd( int speed=255) {
+	sprintf(debug_str, "rfwd %d", speed);
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(RPWM, constrain(speed, 0, 255 ));
+      digitalWrite(RDir, LOW);
+
+}
+
+void rrev(int speed=255) {
+	sprintf(debug_str, "rrev %d", speed);
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(RPWM, constrain(speed, 0, 255 ));
+      digitalWrite(RDir, HIGH);
+
+}
+
+
+void rcoast() {
+	sprintf(debug_str, "rcoast");
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(RPWM, 0);
+      digitalWrite(RDir, HIGH);
+}
+
+void rbrake() {
+	sprintf(debug_str, "rbrake");
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+
+      analogWrite(RPWM, 0);
+      digitalWrite(RDir, LOW);
+}
+
+
+
+//////////////////////////////////////////////////////////////////////
+                               CALLBACKS
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+void RMotorCallBack( const std_msgs::Float32& motor_msg) {
+//////////////////////////////////////////////////////////////////////
+	sprintf(debug_str, "LMotorCallback %0.3f", motor_msg.data);
+	msg_debug.data = debug_str;
+	debug_pub.publish( &msg_debug );
+
+    if (motor_msg.data > 255 || motor_msg.data < -255) {
+    	rbrake();
+    } else if (motor_msg.data == 0) {
+    	rcoast();
+    } else if (motor_msg.data < 0) {
+    	rrev(abs(motor_msg.data));
+    } else {
+    	rfwd(motor_msg.data);
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+void LMotorCallBack( const std_msgs::Float32& motor_msg) {
+//////////////////////////////////////////////////////////////////////
+
+    if (motor_msg.data > 255 || motor_msg.data < -255) {
+    	lbrake();
+    } else if (motor_msg.data == 0) {
+    	lcoast();
+    } else if (motor_msg.data < 0) {
+    	lrev(abs(motor_msg.data));
+    } else {
+    	lfwd(motor_msg.data);
+    }
+}
+
+ros::Subscriber<std_msgs::Float32> rmotor_sub("rmotor_cmd", &RMotorCallBack);
+ros::Subscriber<std_msgs::Float32> lmotor_sub("lmotor_cmd", &LMotorCallBack);
 
 void setup(){  
   pinMode(10,  OUTPUT);                  //direction left
@@ -96,11 +193,21 @@ void setup(){
  
   nh.initNode();
   nh.getHardware()->setBaud(57600);
-  nh.subscribe(Robot_Mike);
+  nh.advertise(debug_pub);
+  nh.advertise(lwheel_pub);
+  nh.advertise(rwheel_pub);
+  nh.subscribe(rmotor_sub);
+  nh.subscribe(lmotor_sub);
 }
 
 void loop(){
-  runCommand(linX,angZ);
+
+  //msg_lwheel.data = lcoder;
+  //msg_rwheel.data = rcoder;
+
+  lwheel_pub.publish( &msg_lwheel );
+  rwheel_pub.publish( &msg_rwheel );
+  
   nh.spinOnce();
   delay(10);
 }
