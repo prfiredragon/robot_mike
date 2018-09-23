@@ -2,20 +2,20 @@
 
 <launch>
 
-<rosparam param="ticks_meter">1000</rosparam>
+<rosparam param="ticks_meter">1384.7733235715</rosparam>
 
   <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
       <remap from="wheel" to="lwheel"/>
       <remap from="motor_cmd" to="lmotor_cmd"/>
       <remap from="wheel_vtarget" to="lwheel_vtarget"/>
       <remap from="wheel_vel" to="lwheel_vel"/>
-      <rosparam param="Kp">200</rosparam>
-      <rosparam param="Ki">200</rosparam>
+      <rosparam param="Kp">230</rosparam><!--half of perfect ocillation 250 --><!-- 185 testing -->
+      <rosparam param="Ki">70</rosparam><!-- 70-->
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
-      <rosparam param="timeout_ticks">4</rosparam>
+      <rosparam param="rate">8</rosparam><!-- 30 -->
+      <rosparam param="timeout_ticks">4</rosparam><!-- 4 -->
       <rosparam param="rolling_pts">5</rosparam>
   </node>
   <node pkg="differential_drive" type="pid_velocity.py" name="rpid_velocity">
@@ -23,21 +23,33 @@
       <remap from="motor_cmd" to="rmotor_cmd"/>
       <remap from="wheel_vtarget" to="rwheel_vtarget"/>
       <remap from="wheel_vel" to="rwheel_vel"/>
-      <rosparam param="Kp">200</rosparam>
-      <rosparam param="Ki">200</rosparam>
+      <rosparam param="Kp">230</rosparam>
+      <rosparam param="Ki">70</rosparam>
       <rosparam param="Kd">0</rosparam>
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
+      <rosparam param="rate">8</rosparam>
       <rosparam param="timeout_ticks">4</rosparam>
-      <rosparam param="rolling_pts">5</rosparam>
+      <rosparam param="rolling_pts">5</rosparam><!-- 5 -->
   </node>
 
   <!--node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/-->
   <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
     <rosparam param="base_width">0.3667125</rosparam>
+    <rosparam param="rate">8</rosparam>
       <remap from="twist" to="cmd_vel"/>
   </node>
+
+
+  <param name="robot_description" textfile="$(find mike_description)urdf/mike.urdf" />
+
+  <node pkg="differential_drive" type="diff_tf.py" name="diff_tf">
+     <rosparam param="rate">8.0</rosparam>
+     <rosparam param="base_width">0.3667125</rosparam>
+  </node>
+
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> 
 
 
 </launch>
