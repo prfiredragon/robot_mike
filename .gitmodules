@@ -7,3 +7,9 @@
 [submodule "src/rtabmap_ros"]
 	path = src/rtabmap_ros
 	url = https://github.com/introlab/rtabmap_ros
+[submodule "src/differential-drive"]
+	path = src/differential-drive
+	url = https://github.com/jfstepha/differential-drive
+[submodule "src/rosserial"]
+	path = src/rosserial
+	url = https://github.com/ros-drivers/rosserial

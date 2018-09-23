@@ -3,33 +3,11 @@
 <launch>
  <!--group ns="mike"-->
 
-  <!-- Run Kinect -->
-    <!-- start sensor-->
-    <include file="$(find freenect_launch)/launch/freenect.launch">
-        <arg name="camera" value="camera"/>
-        <arg name="depth_registration" value="true" />
-        <arg name="publish_tf" value="false" />
-        <arg name="data_skip" value="3"/>
-
-    </include>
-
-  <!-- include file="$(find mike_bringup)/launch/kinect_laser.launch" / -->
-	
-  <!--include file="$(find mike_bringup)/launch/freenect_throttle.launch">
-     <arg name="rate" value="5" />
-  </include-->
-
-  <!-- include file="$(find mike_bringup)/launch/sensor_fusion_kinect_brick.launch" -->
-    <!-- arg name="uid" value="6xDEo7"/ -->
-  <!-- /include -->
+  <!-- KINECT -->
+  <!--include file="$(find mike_bringup)/launch/mike_kinect.launch"/-->
 
   <!-- DEPTH to LASERSCAN  -->
-  <include file="$(find mike_bringup)/launch/depth_laserscan.launch">
-    <arg name="camera" value="camera" />
-    <arg name="scan_topic" value="/scan"/>
-    <arg name="depth" value="depth_registered"/>
-
-  </include>
+  <!-- include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/-->
 
   <!--serial communication between arduino and pc via usb /-->
 
@@ -43,27 +21,29 @@
  <!-- URDF and TF-->
   <node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" />
 
-  <node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
+  <!-- node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
 	<param name="robot" type="string" value="rtabmap" />
-  </node>
+  </node -->
 
   <include file="$(find mike_bringup)/launch/display-robot.launch" >
         <arg name="model" default="$(find mike_description)urdf/mike.urdf"/>
     </include>
 
-  <arg name="pi/2" value="1.5707963267948966" />
+
+
+
+  <!--arg name="pi/2" value="1.5707963267948966" />
       <arg name="optical_rotateB" value="0 0 0 0 0 0" />
 
       <arg name="optical_rotate" value="0 0 0 -$(arg pi/2) 0 -$(arg pi/2)" />
   <node pkg="tf" type="static_transform_publisher" name="optical_rotation"
         args="$(arg optical_rotate) /camera_link /camera_rgb_optical_frame 100" />
   <node pkg="tf" type="static_transform_publisher" name="camdeth_rotation"
-        args="$(arg optical_rotateB) /camera_link /camera_depth_frame 100" />
+        args="$(arg optical_rotateB) /camera_link /camera_depth_frame 100" /-->
 
 
   <!-- RTABMAP -->
-
-  <include file="$(find mike_bringup)/launch/rtabmap_robot.launch" />
+  <!-- include file="$(find mike_bringup)/launch/rtabmap_robot.launch" / -->
 
 
  <!--/group-->

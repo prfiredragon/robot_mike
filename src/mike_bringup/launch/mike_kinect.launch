@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Run Kinect -->
+    <!-- start sensor-->
+    <include file="$(find freenect_launch)/launch/freenect.launch">
+        <arg name="camera" value="camera"/>
+        <arg name="depth_registration" value="true" />
+        <arg name="publish_tf" value="false" />
+        <arg name="data_skip" value="3"/>
+
+    </include>
+
+  <!-- include file="$(find mike_bringup)/launch/kinect_laser.launch" / -->
+	
+  <!--include file="$(find mike_bringup)/launch/freenect_throttle.launch">
+     <arg name="rate" value="5" />
+  </include-->
+
+  <!-- include file="$(find mike_bringup)/launch/sensor_fusion_kinect_brick.launch" -->
+    <!-- arg name="uid" value="6xDEo7"/ -->
+  <!-- /include -->
+
+
+</launch>

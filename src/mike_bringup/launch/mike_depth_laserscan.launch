@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- DEPTH to LASERSCAN  -->
+  <include file="$(find mike_bringup)/launch/depth_laserscan.launch">
+    <arg name="camera" value="camera" />
+    <arg name="scan_topic" value="/scan"/>
+    <arg name="depth" value="depth_registered"/>
+
+  </include>
+
+
+</launch>
