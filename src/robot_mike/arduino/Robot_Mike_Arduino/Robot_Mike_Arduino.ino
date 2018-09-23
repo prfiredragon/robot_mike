@@ -16,7 +16,6 @@
 #include <std_msgs/String.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
-#include <Time.h>
 
 #define LDir 10
 #define LPWM 11
@@ -46,7 +45,7 @@ long time=0;
 
 
 //////////////////////////////////////////////////////////////////////
-                               LEFT
+//                               LEFT
 //////////////////////////////////////////////////////////////////////
 
 void lfwd(int speed=255) {
@@ -96,7 +95,7 @@ void lbrake() {
 
 
 //////////////////////////////////////////////////////////////////////
-                               RIGHT
+//                               RIGHT
 //////////////////////////////////////////////////////////////////////
 
 void rfwd( int speed=255) {
@@ -145,12 +144,11 @@ void rbrake() {
 
 
 //////////////////////////////////////////////////////////////////////
-                               CALLBACKS
+//                               CALLBACKS
 //////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
+
 void RMotorCallBack( const std_msgs::Float32& motor_msg) {
-//////////////////////////////////////////////////////////////////////
 	sprintf(debug_str, "LMotorCallback %0.3f", motor_msg.data);
 	msg_debug.data = debug_str;
 	debug_pub.publish( &msg_debug );
@@ -166,9 +164,8 @@ void RMotorCallBack( const std_msgs::Float32& motor_msg) {
     }
 }
 
-//////////////////////////////////////////////////////////////////////
+
 void LMotorCallBack( const std_msgs::Float32& motor_msg) {
-//////////////////////////////////////////////////////////////////////
 
     if (motor_msg.data > 255 || motor_msg.data < -255) {
     	lbrake();
@@ -211,122 +208,3 @@ void loop(){
   nh.spinOnce();
   delay(10);
 }
-
-
-void runCommand(float linear, float angular){
-  //const float FLRev=1,RbWidth=0.44;           // Experimentally find the FULL LOAD Revolutions for 1 second     // 1 means 0.5 m/s, because wheel length is 50cm
-  //int LinPWMval=2*linX*255/FLRev;             // Calculate the PWM value for received linear velocity command
-  //int AngPWMval=2*angZ*RbWidth*255/FLRev;
-  int Rwheel=0;
-  int Lwheel=0;
-
-
-  if(linX>0){
-      Rwheel=55;
-      Lwheel=55;
-  }
-  
-  if(linX<0){
-      Rwheel=0;
-      Lwheel=0;
-  }
-  if(angZ>0){
-      Rwheel=55;
-      Lwheel=-55;
-  }
-  
-  if(angZ<0){
-      Rwheel=-55;
-      Lwheel=55;
-  }
-/*  const float FLRev=1;           // Experimentally find the FULL LOAD Revolutions for 1 second     // 1 means 0.5 m/s, because wheel length is 50cm
-  int LinPWMval=2*linX*circumference*255/FLRev;             // Calculate the PWM value for received linear velocity command
-  int AngPWMval=angZ*circumference*255/FLRev;
-  int Rwheel=LinPWMval+AngPWMval;
-  int Lwheel=LinPWMval-AngPWMval;
-*/
-  if(Rwheel>0){
-      analogWrite(RPWM, Rwheel);
-      digitalWrite(RDir, LOW);
-  }
-  else{
-      analogWrite(RPWM, -Rwheel);
-      digitalWrite(RDir, HIGH);
-  }
-
-  if(Lwheel>0){
-      analogWrite(LPWM, Lwheel);
-      digitalWrite(LDir, LOW);
-  }
-  else{
-      analogWrite(LPWM, -Lwheel);
-      digitalWrite(LDir, HIGH);
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  This is line number 200, Special thanks for python & shell scripting to 
-
-    SPNP Subasinghe, 
-    Department of Computer Science & Technology, 
-    Faculty of Science & Technology, 
-    Uva Wellassa University of Sri Lanka. 
-    
-    By -Author-    10/01/2014                   			   */
