@@ -6,7 +6,7 @@
   <include file="$(find mike_bringup)/launch/depth_laserscan.launch">
     <arg name="camera" value="camera" />
     <arg name="scan_topic" value="/scan"/>
-    <arg name="depth" value="depth_registered"/>
+    <arg name="depth" value="depth"/>
 
   </include>
 

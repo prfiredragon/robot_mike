@@ -4,10 +4,10 @@
  <!--group ns="mike"-->
 
   <!-- KINECT -->
-  <!--include file="$(find mike_bringup)/launch/mike_kinect.launch"/-->
+  <include file="$(find mike_bringup)/launch/mike_kinect.launch"/>
 
   <!-- DEPTH to LASERSCAN  -->
-  <!-- include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/-->
+  <!--include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/-->
 
   <!--serial communication between arduino and pc via usb /-->
 
@@ -17,10 +17,15 @@
   </node>
 
 
+  <!--  DIFFERENTIAL DRIVE   -->
+
   <include file="$(find mike_bringup)/launch/mike_differential_drive.launch" />
 
+
+
+
  <!-- URDF and TF-->
-  <!-- node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" /-->
+  <!--node name="parser" pkg="mike_description" type="parser" args="$(find mike_description)urdf/mike.urdf"  respawn="false" output="screen" /-->
   
   <!-- node name="mike_tf_broadcaster" pkg="robot_mike" type="robot_tf_broadcaster.py" respawn="false" output="screen" >
 	<param name="robot" type="string" value="rtabmap" />
@@ -43,8 +48,15 @@
         args="$(arg optical_rotateB) /camera_link /camera_depth_frame 100" /-->
 
 
+
+  <!-- GMAPPING -->
+  <!--include file="$(find mike_bringup)/launch/mike_gmapping.launch" /-->
+
+
   <!-- RTABMAP -->
   <!-- include file="$(find mike_bringup)/launch/rtabmap_robot.launch" / -->
+
+
 
 
  <!--/group-->

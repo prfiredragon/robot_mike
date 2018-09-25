@@ -5,38 +5,11 @@ My own robot experiment with ROS
 
 ## **Hardware:**
 
-* Arduino uno
-* [Odroid-c2 with 2GB RAM HDMI 2.0 IR Gigabit](https://amzn.to/2xHJonL)
-* [Accessory USA 5v USB Pc Charging Cable Lead Power Supply Cord for Android Tablet Pc & More Od: 2.5mm Id: 0.8mm (2.5mm X 0.8mm) 2.5x0.8 Dc Barrel Plug Seires](https://amzn.to/2xGjy3d)
-* [16GB microSD. 32 is recomended](https://amzn.to/2xF3aA9).
-* [kinect xbox 360](https://amzn.to/2xHpNDX)
-* [DC Converter Buck Module 12V convert to 5V USB Output Power Adapter](https://amzn.to/2xGq6ip)
-* 2x 6" HiGrip Rubber Wheel (Tetrix) (RB-And-111)
-* 2x 12V DC Motor 146RPM w/Encoder (RB-Dfr-439)
-* Cytron 10A 5-30V Dual Channel DC Motor Driver (RB-Cyt-153)
-* Stepper Motor Mounting Bracket (NEMA 17) (RB-Phi-273)
-* 2x 6mm Set Screw Hub (RB-Nex-17)
+* [See Hardware Used](https://github.com/prfiredragon/robot_mike/wiki/HARDWARE)
 
 ## **Software:**
 
-### **Not Included:**
-
-* [ROS](http://wiki.ros.org/)
-* [image_geometry](http://wiki.ros.org/image_geometry)
-* [Libfreenect](https://github.com/ros-drivers/libfreenect)
-* [joint_state_publisher](http://wiki.ros.org/joint_state_publisher)
-* [robot_state_publisher](http://wiki.ros.org/robot_state_publisher)
-* [rtabmap](http://wiki.ros.org/rtabmap)
-
-### **Included:**
-
-* [depthimage_to_laserscan](https://github.com/ros-perception/depthimage_to_laserscan)
-* [rosserial](https://github.com/ros-drivers/rosserial)
-* [freenect](https://github.com/ros-drivers/freenect_stack)
-* [teleop_twist_keyboard](http://wiki.ros.org/teleop_twist_keyboard)
-* android code based on [UWU_Bot](http://wiki.ros.org/UWU_Bot) and [Southern Bolt](https://www.youtube.com/watch?v=n1W4RJFM0EU) code
-* [rtabmap_ros](https://github.com/introlab/rtabmap_ros)
-* [octomap_ros](https://github.com/OctoMap/octomap_ros)
+* [See Software Used](https://github.com/prfiredragon/robot_mike/wiki/SOFTWARE)
 
 ### **Software Instructions**
 * Check the [Install](https://github.com/prfiredragon/robot_mike/wiki/INSTALL) instructions.
