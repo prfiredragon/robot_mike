@@ -1,0 +1,25 @@
+[Unit]
+Description=Mike service
+# copy to /etc/systemd/system/
+#sudo systemctl daemon-reload
+#sudo systemctl enable mike.service
+#sudo systemctl start mike
+#sudo systemctl status mike
+
+[Service]
+User=mike
+# The configuration file application.properties should be here:
+
+#change this to your workspace
+WorkingDirectory=/home/mike/robot_mike
+
+#path to executable. 
+#executable is a bash script which calls mike
+fileExecStart=/home/mike/robot_mike/scripts/startup
+
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target

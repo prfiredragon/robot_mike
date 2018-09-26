@@ -4,8 +4,11 @@
 
 <node pkg="gmapping" type="slam_gmapping" name="gmapping_thing" output="screen" >
   <remap from="scan" to="scan" />
-  <param name="odom_frame" value="odom" />
+  <param name="odom_frame" value="/odom" />
   <param name="base_frame" value="base_link" />
+  <param name="map_update_interval" value="4.5"/>
+  <param name="transform_publish_period" value="0.1"/>
+
 </node>
 
 
