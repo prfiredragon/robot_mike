@@ -2,7 +2,8 @@
 
 <launch>
 
-<rosparam param="ticks_meter">1384.7733235715</rosparam>
+<rosparam param="ticks_meter">1522</rosparam>
+<!--rosparam param="ticks_meter">1384.7733235715</rosparam-->
 
   <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
       <remap from="wheel" to="lwheel"/>
@@ -35,7 +36,7 @@
 
   <!--node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/-->
   <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
-    <rosparam param="base_width">0.3667125</rosparam>
+    <rosparam param="base_width">0.3683</rosparam>
     <rosparam param="rate">8</rosparam>
       <remap from="twist" to="cmd_vel"/>
   </node>
@@ -44,8 +45,8 @@
   <param name="robot_description" textfile="$(find mike_description)urdf/mike.urdf" />
 
   <node pkg="differential_drive" type="diff_tf.py" name="diff_tf">
-     <!--rosparam param="rate">8.0</rosparam-->
-     <rosparam param="base_width">0.3667125</rosparam>
+     <rosparam param="rate">8.0</rosparam>
+     <rosparam param="base_width">0.3683</rosparam>
      <remap from="odom" to="odom"/>
   </node>
 

@@ -3,7 +3,7 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="0.34925 0.34925 0.1016"/>
+        <box size="0.3048 0.3048 0.2667"/>
       </geometry>
       <material name="any">
         <color rgba="0 1 0 1"/>
@@ -11,7 +11,7 @@
     </visual>
   </link>
 
-  <link name="neck">
+  <!--link name="neck">
     <visual>
       <geometry>
         <box size="1.143 .0889 .0889"/>
@@ -44,8 +44,9 @@
   <joint name="neck_to_kinect_holder_holder" type="fixed">
     <parent link="neck"/>
     <child link="kinect_holder"/>
+-->
     <!-- origin xyz="0.22 0 .25"/ -->
-  </joint>
+  <!--/joint-->
 
   <link name="camera_link">
     <visual>
@@ -59,10 +60,10 @@
     </visual>
   </link>
 
-  <joint name="kinect_holder_holder_to_camera_link" type="fixed">
-    <parent link="kinect_holder"/>
+  <joint name="base_link_holder_to_camera_link" type="fixed">
+    <parent link="base_link"/>
     <child link="camera_link"/>
-      <origin rpy="0 0 0" xyz="0 0 1.3081"/>
+      <origin rpy="0 0 0" xyz="0.1143 0 0.19685"/>
   </joint>
 
   <!--link name="odom">
@@ -83,7 +84,7 @@
       <!-- origin rpy="0 0 1.57075" xyz="0 0 1.3081"/ -->
   <!--/joint-->
 
-  <link name="front_wheel_holder">
+  <!--link name="front_wheel_holder">
     <visual>
       <geometry>
         <box size="0.0381 .0381 .05"/>
@@ -96,8 +97,8 @@
   <joint name="base_to_front_wheel_holder" type="fixed">
     <parent link="base_link"/>
     <child link="front_wheel_holder"/>
-    <!-- origin xyz="0.22 0 .25"/ -->
-     <origin rpy="0 0 0" xyz="0 -0.127 -0.0635"/>
+   --> <!-- origin xyz="0.22 0 .25"/ -->
+     <!--origin rpy="0 0 0" xyz="0 -0.127 -0.0635"/>
   </joint>
 
   <link name="front__wheel">
@@ -132,8 +133,8 @@
   <joint name="base_to_right_leg" type="fixed">
     <parent link="base_link"/>
     <child link="right_leg"/>
-    <!-- origin xyz="0.22 0 .25"/ -->
-    <origin rpy="0 1.57075 0" xyz="0.1905 0.127 -0.0762"/>
+   --> <!-- origin xyz="0.22 0 .25"/ -->
+    <!--origin rpy="0 1.57075 0" xyz="0.1905 0.127 -0.0762"/>
   </joint>
 
   <link name="right__wheel">
@@ -157,8 +158,8 @@
   <joint name="base_to_left_leg" type="fixed">
     <parent link="base_link"/>
     <child link="left_leg"/>
-    <!-- origin xyz="-0.22 0 .25"/ -->
-    <origin rpy="0 1.57075 0" xyz="-0.1905 0.127 -0.0762"/>
+   --> <!-- origin xyz="-0.22 0 .25"/ -->
+    <!--origin rpy="0 1.57075 0" xyz="-0.1905 0.127 -0.0762"/>
   </joint>
 
   <link name="left_leg">
@@ -181,11 +182,11 @@
   </link>
 
   <joint name="left_wheel_to_left_leg" type="continuous">
-    <!-- axis xyz="0 0 1"/ -->
-    <parent link="left_leg"/>
+   --> <!-- axis xyz="0 0 1"/ -->
+    <!--parent link="left_leg"/>
     <child link="left_wheel"/>
     <origin rpy="0 0 0" xyz="0 0.0 0"/>
     <limit effort="100" velocity="10"/>
-  </joint>
+  </joint-->
 
 </robot>

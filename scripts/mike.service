@@ -5,21 +5,22 @@ Description=Mike service
 #sudo systemctl enable mike.service
 #sudo systemctl start mike
 #sudo systemctl status mike
+After=network.target
 
 [Service]
 User=mike
 # The configuration file application.properties should be here:
+[Service]
+Type=forking
+ExecStart=/bin/bash -c "export ROS_MASTER_URI=http://192.168.0.25:11311/; export ROS_IP=192.168.0.25; export ROS_HOSTNAME=192.168.0.25; source /opt/ros/melodic/setup.bash; /usr/bin/python /opt/ros/melodic/bin/roscore"
+Restart=on-failure
+PIDFile=/var/run/ros/mike.pid
 
-#change this to your workspace
-WorkingDirectory=/home/mike/robot_mike
-
-#path to executable. 
-#executable is a bash script which calls mike
-fileExecStart=/home/mike/robot_mike/scripts/startup
+StandardOutput=journal
 
 SuccessExitStatus=143
 TimeoutStopSec=10
-Restart=on-failure
+#Restart=on-failure
 RestartSec=5
 [Install]
 WantedBy=multi-user.target
