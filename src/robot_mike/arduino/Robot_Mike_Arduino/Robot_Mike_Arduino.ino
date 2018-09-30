@@ -34,6 +34,7 @@
 
 int Left_Encoder_Ticks = 0;
 volatile bool LeftEncoderBSet;
+byte Left_Encoder_Last;
 
 //Right Encoder
 
@@ -41,6 +42,11 @@ volatile bool LeftEncoderBSet;
 #define Right_Encoder_PinB 8
 int Right_Encoder_Ticks = 0;
 volatile bool RightEncoderBSet;
+byte Right_Encoder_Last;
+
+
+#define LOOP_DLY 5  // in msec
+
 
 
 
@@ -181,18 +187,24 @@ void SetupEncoders()
   // Quadrature encoders
   // Left encoder
   pinMode(Left_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input  
+  //pinMode(Left_Encoder_PinA, INPUT);      // sets pin A as input
   pinMode(Left_Encoder_PinB, INPUT);      // sets pin B as input
   //Attaching interrupt in Left_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Left_Encoder_PinA), do_Left_Encoder, RISING);
   attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Left_Encoder_PinA),do_Left_Encoder, RISING);
-  
+  //attachInterrupt(Left_Encoder_PinA, do_Left_Encoder, RISING);   //init the interrupt mode
+
 
   // Right encoder
   pinMode(Right_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input
+  //pinMode(Right_Encoder_PinA, INPUT);      // sets pin A as input
   pinMode(Right_Encoder_PinB, INPUT);      // sets pin B as input
   //Attaching interrupt in Right_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Right_Encoder_PinA), do_Right_Encoder, RISING); 
   attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Right_Encoder_PinA),do_Right_Encoder, RISING);
+  //attachInterrupt(Right_Encoder_PinA, do_Right_Encoder, RISING);   //init the interrupt mode
+
+  //attachInterrupt(0,wheelSpeed, CHANGE);
 
 }
 
@@ -215,7 +227,7 @@ void setup(){
 }
 
 void loop(){
-
+  nh.spinOnce();
   msg_lwheel.data = Left_Encoder_Ticks;
   msg_rwheel.data = Right_Encoder_Ticks;
 
@@ -225,7 +237,7 @@ void loop(){
 
   
   nh.spinOnce();
-  delay(10);
+  delay(LOOP_DLY);
 }
 
 
@@ -251,4 +263,23 @@ void do_Right_Encoder()
  
  
   
+}
+
+void wheelSpeed()
+{
+  int Lstate = digitalRead(Left_Encoder_PinA);
+  if((Left_Encoder_Last == LOW) && Lstate==HIGH)
+  {
+    do_Left_Encoder();
+  }
+  Left_Encoder_Last = Lstate;
+
+  int Rstate = digitalRead(Right_Encoder_PinA);
+  if((Right_Encoder_Last == LOW) && Rstate==HIGH)
+  {
+    do_Right_Encoder();
+  }
+  Right_Encoder_Last = Rstate;
+
+
 }
