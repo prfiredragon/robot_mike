@@ -45,7 +45,7 @@ volatile bool RightEncoderBSet;
 byte Right_Encoder_Last;
 
 
-#define LOOP_DLY 5  // in msec
+#define LOOP_DLY 8  // in msec
 
 
 
@@ -58,8 +58,6 @@ std_msgs::Int16 msg_rwheel;
 
 ros::Publisher lwheel_pub("lwheel", &msg_lwheel);
 ros::Publisher rwheel_pub("rwheel", &msg_rwheel);
-
-char debug_str[80] = "blank";
 
 
 long time=0;
@@ -236,7 +234,7 @@ void loop(){
 
 
   
-  nh.spinOnce();
+//  nh.spinOnce();
   delay(LOOP_DLY);
 }
 
