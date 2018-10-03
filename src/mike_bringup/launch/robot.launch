@@ -68,7 +68,7 @@
   <!-- include file="$(find mike_bringup)/launch/rtabmap_robot.launch" / -->
 
 
-  <!--include file="$(find mike_bringup)/launch/mike_robot_location.launch"/-->
+  <include file="$(find mike_bringup)/launch/mike_robot_location.launch"/>
 
  <!--/group-->
 </launch>
