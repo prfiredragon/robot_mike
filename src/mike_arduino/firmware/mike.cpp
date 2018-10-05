@@ -18,6 +18,7 @@
 #include <std_msgs/Float32.h>
 //Make a pin into an interrupt
 //#include <PinChangeInterrupt.h>
+#include <Arduino.h>
 
 #define LDir 10
 #define LPWM 11
@@ -30,7 +31,7 @@
 // Left encoder
 
 #define Left_Encoder_PinA 2
-#define Left_Encoder_PinB 3
+#define Left_Encoder_PinB 4
 
 int Left_Encoder_Ticks = 0;
 volatile bool LeftEncoderBSet;
@@ -38,7 +39,7 @@ byte Left_Encoder_Last;
 
 //Right Encoder
 
-#define Right_Encoder_PinA 4
+#define Right_Encoder_PinA 3
 #define Right_Encoder_PinB 8
 int Right_Encoder_Ticks = 0;
 volatile bool RightEncoderBSet;
@@ -180,29 +181,58 @@ void LMotorCallBack( const std_msgs::Float32& motor_msg) {
 ros::Subscriber<std_msgs::Float32> rmotor_sub("rmotor_cmd", &RMotorCallBack);
 ros::Subscriber<std_msgs::Float32> lmotor_sub("lmotor_cmd", &LMotorCallBack);
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//do_Left_Encoder() Definitions
+void do_Left_Encoder()
+{
+   // Test transition; since the interrupt will only fire on 'rising' we don't need to read pin A
+  LeftEncoderBSet = digitalRead(Left_Encoder_PinB);   // read the input pin
+  Left_Encoder_Ticks += LeftEncoderBSet ? -1 : +1;
+   
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//do_Right_Encoder() Definitions
+
+void do_Right_Encoder()
+{
+  
+  RightEncoderBSet = digitalRead(Right_Encoder_PinB);   // read the input pin
+  Right_Encoder_Ticks -= RightEncoderBSet ? -1 : +1;
+ 
+ 
+  
+}
+
+
+
+
 //SetupEncoders() Definition
 
 void SetupEncoders()
 {
   // Quadrature encoders
   // Left encoder
-  pinMode(Left_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input  
+  //pinMode(Left_Encoder_PinA, INPUT);      // sets pin A as input  
   //pinMode(Left_Encoder_PinA, INPUT);      // sets pin A as input
-  pinMode(Left_Encoder_PinB, INPUT_PULLUP);      // sets pin B as input
+  pinMode(Left_Encoder_PinB, INPUT);      // sets pin B as input
   //Attaching interrupt in Left_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Left_Encoder_PinA), do_Left_Encoder, RISING);
   //attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Left_Encoder_PinA),do_Left_Encoder, RISING);
-  attachInterrupt(Left_Encoder_PinA, do_Left_Encoder, RISING);   //init the interrupt mode
+  attachInterrupt(0, do_Left_Encoder, RISING);   //init the interrupt mode
 
 
   // Right encoder
-  pinMode(Right_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input
   //pinMode(Right_Encoder_PinA, INPUT);      // sets pin A as input
-  pinMode(Right_Encoder_PinB, INPUT_PULLUP);      // sets pin B as input
+  //pinMode(Right_Encoder_PinA, INPUT);      // sets pin A as input
+  pinMode(Right_Encoder_PinB, INPUT);      // sets pin B as input
   //Attaching interrupt in Right_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Right_Encoder_PinA), do_Right_Encoder, RISING); 
   //attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Right_Encoder_PinA),do_Right_Encoder, RISING);
-  attachInterrupt(Right_Encoder_PinA, do_Right_Encoder, RISING);   //init the interrupt mode
+  attachInterrupt(1, do_Right_Encoder, RISING);   //init the interrupt mode
 
   //attachInterrupt(0,wheelSpeed, CHANGE);
 
@@ -241,29 +271,6 @@ void loop(){
 }
 
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//do_Left_Encoder() Definitions
-void do_Left_Encoder()
-{
-   // Test transition; since the interrupt will only fire on 'rising' we don't need to read pin A
-  LeftEncoderBSet = digitalRead(Left_Encoder_PinB);   // read the input pin
-  Left_Encoder_Ticks += LeftEncoderBSet ? -1 : +1;
-   
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//do_Right_Encoder() Definitions
-
-void do_Right_Encoder()
-{
-  
-  RightEncoderBSet = digitalRead(Right_Encoder_PinB);   // read the input pin
-  Right_Encoder_Ticks -= RightEncoderBSet ? -1 : +1;
- 
- 
-  
-}
 
 void wheelSpeed()
 {
