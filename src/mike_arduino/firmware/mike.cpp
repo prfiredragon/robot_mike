@@ -17,7 +17,7 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Float32.h>
 //Make a pin into an interrupt
-#include <PinChangeInterrupt.h>
+//#include <PinChangeInterrupt.h>
 
 #define LDir 10
 #define LPWM 11
@@ -45,7 +45,7 @@ volatile bool RightEncoderBSet;
 byte Right_Encoder_Last;
 
 
-#define LOOP_DLY 8  // in msec
+#define LOOP_DLY 5  // in msec
 
 
 
@@ -58,6 +58,8 @@ std_msgs::Int16 msg_rwheel;
 
 ros::Publisher lwheel_pub("lwheel", &msg_lwheel);
 ros::Publisher rwheel_pub("rwheel", &msg_rwheel);
+
+char debug_str[80] = "blank";
 
 
 long time=0;
@@ -186,21 +188,21 @@ void SetupEncoders()
   // Left encoder
   pinMode(Left_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input  
   //pinMode(Left_Encoder_PinA, INPUT);      // sets pin A as input
-  pinMode(Left_Encoder_PinB, INPUT);      // sets pin B as input
+  pinMode(Left_Encoder_PinB, INPUT_PULLUP);      // sets pin B as input
   //Attaching interrupt in Left_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Left_Encoder_PinA), do_Left_Encoder, RISING);
-  attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Left_Encoder_PinA),do_Left_Encoder, RISING);
-  //attachInterrupt(Left_Encoder_PinA, do_Left_Encoder, RISING);   //init the interrupt mode
+  //attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Left_Encoder_PinA),do_Left_Encoder, RISING);
+  attachInterrupt(Left_Encoder_PinA, do_Left_Encoder, RISING);   //init the interrupt mode
 
 
   // Right encoder
   pinMode(Right_Encoder_PinA, INPUT_PULLUP);      // sets pin A as input
   //pinMode(Right_Encoder_PinA, INPUT);      // sets pin A as input
-  pinMode(Right_Encoder_PinB, INPUT);      // sets pin B as input
+  pinMode(Right_Encoder_PinB, INPUT_PULLUP);      // sets pin B as input
   //Attaching interrupt in Right_Enc_PinA.
   //attachInterrupt(digitalPinToInterrupt(Right_Encoder_PinA), do_Right_Encoder, RISING); 
-  attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Right_Encoder_PinA),do_Right_Encoder, RISING);
-  //attachInterrupt(Right_Encoder_PinA, do_Right_Encoder, RISING);   //init the interrupt mode
+  //attachPinChangeInterrupt(digitalPinToPinChangeInterrupt(Right_Encoder_PinA),do_Right_Encoder, RISING);
+  attachInterrupt(Right_Encoder_PinA, do_Right_Encoder, RISING);   //init the interrupt mode
 
   //attachInterrupt(0,wheelSpeed, CHANGE);
 
@@ -214,7 +216,6 @@ void setup(){
   //circumference = pi*diameter;
  
   nh.initNode();
-  //nh.getHardware()->setBaud(57600);
   nh.getHardware()->setBaud(57600);
   nh.advertise(lwheel_pub);
   nh.advertise(rwheel_pub);
@@ -235,7 +236,7 @@ void loop(){
 
 
   
-//  nh.spinOnce();
+  nh.spinOnce();
   delay(LOOP_DLY);
 }
 
