@@ -46,7 +46,7 @@ volatile bool RightEncoderBSet;
 byte Right_Encoder_Last;
 
 
-#define LOOP_DLY 5  // in msec
+#define LOOP_DLY 10  // in msec
 
 
 
