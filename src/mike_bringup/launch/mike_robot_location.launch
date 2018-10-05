@@ -1,6 +1,6 @@
 <launch>
 
-  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" output="screen">
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
 
       <rosparam command="load" file="$(find mike_bringup)/config/ekf_localization.yaml"/>
   </node>
