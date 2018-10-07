@@ -20,10 +20,12 @@
 //#include <PinChangeInterrupt.h>
 #include <Arduino.h>
 
+#include <Servo.h>
+
 #define LDir 10
 #define LPWM 11
 #define RDir 12
-#define RPWM 9
+#define RPWM 6
 
 ///////////////////////////////////////////////////////////////
 //Encoder pins definition
@@ -46,6 +48,14 @@ volatile bool RightEncoderBSet;
 byte Right_Encoder_Last;
 
 
+// Ultrasonic Sensor
+#define RANGE_pin 7
+
+// Servo
+#define SERVO1 5
+Servo servo1;
+
+
 #define LOOP_DLY 10  // in msec
 
 
@@ -56,11 +66,12 @@ ros::NodeHandle nh;
 
 std_msgs::Int16 msg_lwheel;
 std_msgs::Int16 msg_rwheel;
+std_msgs::Int16 msg_range;
 
 ros::Publisher lwheel_pub("lwheel", &msg_lwheel);
 ros::Publisher rwheel_pub("rwheel", &msg_rwheel);
+ros::Publisher range_pub("range", &msg_range);
 
-char debug_str[80] = "blank";
 
 
 long time=0;
@@ -178,9 +189,18 @@ void LMotorCallBack( const std_msgs::Float32& motor_msg) {
     }
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+void ServoCallBack( const std_msgs::Int16& servo_msg) {
+//////////////////////////////////////////////////////////////////////////
+	servo1.write( constrain( servo_msg.data, 0, 179) );
+}
+
+
 ros::Subscriber<std_msgs::Float32> rmotor_sub("rmotor_cmd", &RMotorCallBack);
 ros::Subscriber<std_msgs::Float32> lmotor_sub("lmotor_cmd", &LMotorCallBack);
 
+ros::Subscriber<std_msgs::Int16> servo_sub("servo_cmd", &ServoCallBack);
 
 
 
@@ -238,19 +258,58 @@ void SetupEncoders()
 
 }
 
+
+
+int microsecondsToCentimeters(int microseconds) {
+  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+  // The ping travels out and back, so to find the distance of the object we
+  // take half of the distance travelled.
+  return microseconds / 29 / 2;
+}
+
+int pingping(){
+  int duration, cm;
+
+  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  pinMode(RANGE_pin, OUTPUT);
+  digitalWrite(RANGE_pin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(RANGE_pin, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(RANGE_pin, LOW);
+
+  // The same pin is used to read the signal from the PING))): a HIGH pulse
+  // whose duration is the time (in microseconds) from the sending of the ping
+  // to the reception of its echo off of an object.
+  pinMode(RANGE_pin, INPUT);
+  duration = pulseIn(RANGE_pin, HIGH);
+
+  // convert the time into a distance
+  cm = microsecondsToCentimeters(duration);
+
+return cm;
+}
+
 void setup(){  
-  pinMode(10,  OUTPUT);                  //direction left
-  pinMode(11,  OUTPUT);                  //PWM left
-  pinMode(9,  OUTPUT);                  //PWM right
-  pinMode(12,  OUTPUT);                  //direction right
-  //circumference = pi*diameter;
- 
+
   nh.initNode();
   nh.getHardware()->setBaud(57600);
   nh.advertise(lwheel_pub);
   nh.advertise(rwheel_pub);
+  nh.advertise(range_pub);
   nh.subscribe(rmotor_sub);
   nh.subscribe(lmotor_sub);
+
+  nh.subscribe(servo_sub);
+  servo1.attach(SERVO1);
+
+  pinMode(10,  OUTPUT);                  //direction left
+  pinMode(11,  OUTPUT);                  //PWM left
+  pinMode(9,  OUTPUT);                  //PWM right
+  pinMode(12,  OUTPUT);                  //direction right
+
+
 
    //Setup Encoders
   SetupEncoders();
@@ -260,33 +319,13 @@ void loop(){
   nh.spinOnce();
   msg_lwheel.data = Left_Encoder_Ticks;
   msg_rwheel.data = Right_Encoder_Ticks;
-
+  msg_range.data = pingping();
   lwheel_pub.publish( &msg_lwheel );
   rwheel_pub.publish( &msg_rwheel );
-
+  range_pub.publish( &msg_range );
 
   
   nh.spinOnce();
   delay(LOOP_DLY);
 }
 
-
-
-void wheelSpeed()
-{
-  int Lstate = digitalRead(Left_Encoder_PinA);
-  if((Left_Encoder_Last == LOW) && Lstate==HIGH)
-  {
-    do_Left_Encoder();
-  }
-  Left_Encoder_Last = Lstate;
-
-  int Rstate = digitalRead(Right_Encoder_PinA);
-  if((Right_Encoder_Last == LOW) && Rstate==HIGH)
-  {
-    do_Right_Encoder();
-  }
-  Right_Encoder_Last = Rstate;
-
-
-}
