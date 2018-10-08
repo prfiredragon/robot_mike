@@ -51,7 +51,7 @@
         args="$(arg optical_rotate) /base_link /camera_rgb_optical_frame 100" />
 
   <node pkg="tf" type="static_transform_publisher" name="camdeth_rotation"
-        args="$(arg optical_rotate) /base_link /camera_depth_frame 100" />
+        args="$(arg base_to_cam) /base_link /camera_depth_frame 100" />
 
   <node pkg="tf" type="static_transform_publisher" name="depthoptical_rotation"
         args="$(arg optical_rotate) /base_link /camera_depth_optical_frame 100"/>
@@ -64,6 +64,7 @@
 
   <node pkg="tf" type="static_transform_publisher" name="scanner_link_rotation"
         args="$(arg base_to_cam) /base_link /scanner 100"/>
+
 
   <!-- GMAPPING -->
   <!--include file="$(find mike_bringup)/launch/mike_gmapping.launch" /-->
