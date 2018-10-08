@@ -69,6 +69,9 @@
   <!-- GMAPPING -->
   <!--include file="$(find mike_bringup)/launch/mike_gmapping.launch" /-->
 
+  <!-- Run MOVE_BASE -->
+  <include file="$(find mike_bringup)/launch/mike_move_base.launch" />
+
 
   <!-- RTABMAP -->
   <!-- include file="$(find mike_bringup)/launch/rtabmap_robot.launch" / -->
