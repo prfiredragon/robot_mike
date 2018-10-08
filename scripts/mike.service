@@ -12,7 +12,7 @@ User=mike
 # The configuration file application.properties should be here:
 [Service]
 Type=forking
-ExecStart=/bin/bash -c "export ROS_MASTER_URI=http://192.168.0.25:11311/; export ROS_IP=192.168.0.25; export ROS_HOSTNAME=192.168.0.25; source /opt/ros/melodic/setup.bash; /usr/bin/python /opt/ros/melodic/bin/roscore"
+ExecStart=/bin/bash -c "export ROS_MASTER_URI=http://192.168.0.25:11311/; export ROS_IP=192.168.0.25; export ROS_HOSTNAME=192.168.0.25; source /opt/ros/melodic/setup.bash; source /home/mike/robot_mike/devel/setup.bash; /usr/bin/python /opt/ros/melodic/bin/roslaunch mike_bringup robot.launch"
 Restart=on-failure
 PIDFile=/var/run/ros/mike.pid
 

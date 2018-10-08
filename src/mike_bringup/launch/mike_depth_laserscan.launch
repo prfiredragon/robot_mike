@@ -20,7 +20,7 @@
      <!--param name="range_max" value="10.0"/-->
      <param name="min_height" value=".10"/>
      <!--param name="max_height" value="2.0"/-->
-     <param name="output_frame_id" value="$(arg ns)/camera_link"/>
+     <param name="output_frame_id" value="camera_link"/>
      <remap from="image" to="/$(arg ns)/$(arg camera)/$(arg depth)/image_raw"/>
      <remap from="/scan" to="/$(arg scan_topic)"/> 
   </node>
