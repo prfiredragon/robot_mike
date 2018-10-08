@@ -66,7 +66,7 @@ ros::NodeHandle nh;
 
 std_msgs::Int16 msg_lwheel;
 std_msgs::Int16 msg_rwheel;
-std_msgs::Int16 msg_range;
+std_msgs::Float32 msg_range;
 
 ros::Publisher lwheel_pub("lwheel", &msg_lwheel);
 ros::Publisher rwheel_pub("rwheel", &msg_rwheel);
@@ -191,16 +191,16 @@ void LMotorCallBack( const std_msgs::Float32& motor_msg) {
 
 
 //////////////////////////////////////////////////////////////////////////
-void ServoCallBack( const std_msgs::Int16& servo_msg) {
+//void ServoCallBack( const std_msgs::Int16& servo_msg) {
 //////////////////////////////////////////////////////////////////////////
-	servo1.write( constrain( servo_msg.data, 0, 179) );
-}
+//	servo1.write( constrain( servo_msg.data, 0, 179) );
+//}
 
 
 ros::Subscriber<std_msgs::Float32> rmotor_sub("rmotor_cmd", &RMotorCallBack);
 ros::Subscriber<std_msgs::Float32> lmotor_sub("lmotor_cmd", &LMotorCallBack);
 
-ros::Subscriber<std_msgs::Int16> servo_sub("servo_cmd", &ServoCallBack);
+//ros::Subscriber<std_msgs::Int16> servo_sub("servo_cmd", &ServoCallBack);
 
 
 
@@ -260,15 +260,19 @@ void SetupEncoders()
 
 
 
-int microsecondsToCentimeters(int microseconds) {
+float microsecondsToCentimeters(float microseconds) {
   // The speed of sound is 340 m/s or 29 microseconds per centimeter.
   // The ping travels out and back, so to find the distance of the object we
   // take half of the distance travelled.
   return microseconds / 29 / 2;
 }
 
-int pingping(){
-  int duration, cm;
+float cmToMeters(float cm){
+return cm / 100;
+}
+
+float pingping(){
+  float duration, cm, meters;
 
   // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
@@ -287,9 +291,20 @@ int pingping(){
 
   // convert the time into a distance
   cm = microsecondsToCentimeters(duration);
-
-return cm;
+  meters = cmToMeters(cm);
+return meters;
 }
+
+//////////////////////////////////////////////////////////////////////////
+void ServoCallBack( const std_msgs::Int16& servo_msg) {
+//////////////////////////////////////////////////////////////////////////
+        servo1.write( constrain( servo_msg.data, 0, 179) );
+  msg_range.data = pingping();
+  range_pub.publish( &msg_range );
+
+}
+
+ros::Subscriber<std_msgs::Int16> servo_sub("servo_cmd", &ServoCallBack);
 
 void setup(){  
 
@@ -319,10 +334,10 @@ void loop(){
   nh.spinOnce();
   msg_lwheel.data = Left_Encoder_Ticks;
   msg_rwheel.data = Right_Encoder_Ticks;
-  msg_range.data = pingping();
+//  msg_range.data = pingping();
   lwheel_pub.publish( &msg_lwheel );
   rwheel_pub.publish( &msg_rwheel );
-  range_pub.publish( &msg_range );
+//  range_pub.publish( &msg_range );
 
   
   nh.spinOnce();

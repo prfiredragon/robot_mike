@@ -6,10 +6,10 @@
   <!--param name="use_sim_time" type="bool" value="true" /-->
 
   <!-- KINECT -->
-  <!--include file="$(find mike_bringup)/launch/mike_kinect.launch"/-->
+  <include file="$(find mike_bringup)/launch/mike_kinect.launch"/>
 
   <!-- DEPTH to LASERSCAN  -->
-  <!--include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/-->
+  <include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/>
 
   <!--serial communication between arduino and pc via usb /-->
 
@@ -43,9 +43,9 @@
   <arg name="pi/2" value="1.5707963267948966" />
       <arg name="optical_rotateB" value="0 0 0 0 0 0" />
 
-      <arg name="optical_rotate" value="0.1143 0 0.19685 -$(arg pi/2) 0 -$(arg pi/2)" />
+      <arg name="optical_rotate" value="0.1643 0 0.28685 -$(arg pi/2) 0 -$(arg pi/2)" />
      
-      <arg name="base_to_cam" value="0.1143 0 0.19685 0 0 0"/>
+      <arg name="base_to_cam" value="0.1643 0 0.28685 0 0 0"/>
 
   <node pkg="tf" type="static_transform_publisher" name="optical_rotation"
         args="$(arg optical_rotate) /base_link /camera_rgb_optical_frame 100" />
@@ -62,7 +62,8 @@
   <node pkg="tf" type="static_transform_publisher" name="camera_link_rotation"
         args="$(arg base_to_cam) /base_link /camera_link 100"/>
 
-
+  <node pkg="tf" type="static_transform_publisher" name="scanner_link_rotation"
+        args="$(arg base_to_cam) /base_link /scanner 100"/>
 
   <!-- GMAPPING -->
   <!--include file="$(find mike_bringup)/launch/mike_gmapping.launch" /-->
