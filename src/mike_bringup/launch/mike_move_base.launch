@@ -7,7 +7,7 @@
   <include file="$(find mike_bringup)/launch/amcl_diff.launch" />
 
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base">
     <rosparam file="$(find mike_bringup)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find mike_bringup)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find mike_bringup)/config/local_costmap_params.yaml" command="load" />
