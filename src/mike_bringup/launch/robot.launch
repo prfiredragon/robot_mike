@@ -6,10 +6,10 @@
   <!--param name="use_sim_time" type="bool" value="true" /-->
 
   <!-- KINECT -->
-  <include file="$(find mike_bringup)/launch/mike_kinect.launch"/>
+  <!--include file="$(find mike_bringup)/launch/mike_kinect.launch"/-->
 
   <!-- DEPTH to LASERSCAN  -->
-  <include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/>
+  <!--include file="$(find mike_bringup)/launch/mike_depth_laserscan.launch"/-->
 
   <!--serial communication between arduino and pc via usb /-->
 
@@ -21,7 +21,7 @@
 
   <!--  DIFFERENTIAL DRIVE   -->
 
-  <include file="$(find mike_bringup)/launch/mike_differential_drive.launch" />
+  <!--include file="$(find mike_bringup)/launch/mike_differential_drive.launch" /-->
 
 
 
@@ -70,7 +70,7 @@
   <!--include file="$(find mike_bringup)/launch/mike_gmapping.launch" /-->
 
   <!-- Run MOVE_BASE -->
-  <include file="$(find mike_bringup)/launch/mike_move_base.launch" />
+  <!--include file="$(find mike_bringup)/launch/mike_move_base.launch" /-->
 
 
   <!-- RTABMAP -->

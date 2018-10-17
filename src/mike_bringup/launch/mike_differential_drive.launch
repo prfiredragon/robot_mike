@@ -2,7 +2,7 @@
 
 <launch>
 
-<rosparam param="ticks_meter">1522</rosparam>
+<rosparam param="ticks_meter">1524</rosparam>
 <!--rosparam param="ticks_meter">1384.7733235715</rosparam-->
 
   <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
@@ -16,7 +16,7 @@
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
       <rosparam param="rate">10</rosparam><!-- 30 -->
-      <rosparam param="timeout_ticks">3</rosparam><!-- 4 -->
+      <rosparam param="timeout_ticks">6</rosparam><!-- 4 -->
       <rosparam param="rolling_pts">5</rosparam>
   </node>
   <node pkg="differential_drive" type="pid_velocity.py" name="rpid_velocity">
@@ -30,7 +30,7 @@
       <rosparam param="out_min">-255</rosparam>
       <rosparam param="out_max">255</rosparam>
       <rosparam param="rate">10</rosparam>
-      <rosparam param="timeout_ticks">3</rosparam>
+      <rosparam param="timeout_ticks">6</rosparam>
       <rosparam param="rolling_pts">5</rosparam><!-- 5 -->
   </node>
 
@@ -38,6 +38,7 @@
   <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors">
     <rosparam param="base_width">0.395</rosparam>
     <rosparam param="rate">10</rosparam>
+      <rosparam param="timeout_ticks">6</rosparam>
       <remap from="twist" to="cmd_vel"/>
   </node>
 
