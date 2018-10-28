@@ -27,7 +27,8 @@ class Mike_Chat():
         # Set the default TTS voice to use
         #self.voice = rospy.get_param("~voice", "voice_en1_mbrola")
         self.voice = rospy.get_param("~voice", "voice_el_diphone")
-        self.robot = rospy.get_param("~robot", "robbie")
+        self.speech_lang = rospy.get_param("~speech_lang", "es")
+        self.robot = rospy.get_param("~robot", "mike")
         # Create the sound client object
         self.soundhandle = SoundClient()
 
@@ -79,7 +80,7 @@ class Mike_Chat():
 	totrntext=self.kern.respond(trntext.text)
 	#rospy.sleep(1)
 	print totrntext
-	resptext=self.translator.translate(totrntext, dest='es', src='auto')
+	resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
 	#rospy.sleep(1)
 	print resptext.text
         self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
