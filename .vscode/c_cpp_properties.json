@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/opt/ros/melodic/include/",
+                    "/usr/include/",
+                    "/home/mike/robot_mike/src/rosserial/rosserial_arduino/src/ros_lib/"
+                ]
+            },
+            "includePath": [
+                "/opt/ros/melodic/include",
+                "/usr/include",
+                "/home/mike/robot_mike/src/rosserial/rosserial_arduino/src/ros_lib",
+                "/usr/share/arduino/hardware/arduino/cores/arduino",
+                "/usr/lib/avr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "defines": ["ARDUINO=100", "__AVR_ATmega8__"]
+        }
+    ],
+    "version": 4
+}
