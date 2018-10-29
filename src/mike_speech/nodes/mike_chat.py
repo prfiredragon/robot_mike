@@ -66,23 +66,31 @@ class Mike_Chat():
 
     def speak_text(self, text):
         print (text.data)
-        trntext= self.translator.translate(text.data, dest='en', src='auto')
-        print (trntext.text)
-        totrntext=self.kern.respond(trntext.text)
-        print (totrntext)
-        resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
-        resptext = resptext.text 
-        try:
-            resptext = unicode(resptext, 'utf-8')
-        except (TypeError, NameError): # unicode is a default on python 3 
-            pass
-        resptext = unicodedata.normalize('NFD', resptext)
-        resptext = resptext.encode('ascii', 'ignore')
-        resptext = resptext.decode("utf-8")
-        print (str(resptext))
-        #self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
-        #self.soundhandle.say(resptext.text, self.voice)
-        self.soundhandle.say(str(resptext), self.voice)
+        message = text.data
+        if message == "save":
+            self.kern.saveBrain("bot.brn")
+        elif message == "load aiml b":
+            self.kern.respond("load aiml b")
+        elif message == "reload aiml":
+            self.kern.respond("load aiml b")
+        else:
+            trntext= self.translator.translate(text.data, dest='en', src='auto')
+            print (trntext.text)
+            totrntext=self.kern.respond(trntext.text)
+            print (totrntext)
+            resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
+            resptext = resptext.text 
+            try:
+                resptext = unicode(resptext, 'utf-8')
+            except (TypeError, NameError): # unicode is a default on python 3 
+                pass
+            resptext = unicodedata.normalize('NFD', resptext)
+            resptext = resptext.encode('ascii', 'ignore')
+            resptext = resptext.decode("utf-8")
+            print (str(resptext))
+            #self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
+            #self.soundhandle.say(resptext.text, self.voice)
+            self.soundhandle.say(str(resptext), self.voice)
 
 
 
