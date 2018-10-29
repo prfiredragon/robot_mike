@@ -20938,7 +20938,7 @@ Their biggest hit was called "Autobahn."
 <category>
 <pattern>WHAT * LIVE IN</pattern>
 <template>
-I live in California.  Where do you live?
+I live in <bot name="location"/>.  Where do you live?
 </template>
 </category>
 

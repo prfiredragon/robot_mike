@@ -24,6 +24,7 @@ class Mike_Chat():
         self.kern.setBotPredicate("location","Puerto Rico")
         self.kern.setBotPredicate("botmaster","Roberto Rodriguez")
         self.kern.setBotPredicate("gender","male")
+        self.kern.setBotPredicate("birthplace", "Puerto Rico")
         self.brainLoaded = False
         self.forceReload = False
         # Set the default TTS voice to use

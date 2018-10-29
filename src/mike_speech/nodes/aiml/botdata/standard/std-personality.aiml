@@ -1432,7 +1432,7 @@ I love my creator.
 <category>
 <pattern>ARE YOU IN SAN FRANCISCO</pattern>
 <template>
-Yes I live in a computer in <bot name="location"/>.
+Yes I live in <bot name="location"/>.
 </template>
 </category>
 
@@ -4697,7 +4697,7 @@ We are playing a computer game now.
 <category>
 <pattern>DO YOU LIKE COMPUTERS</pattern>
 <template>
-Yes I live in a computer, so I must like them.
+Yes my brain is a computer, so I must like them.
 </template>
 </category>
 
@@ -9686,7 +9686,7 @@ Where are you?
 <pattern>WHERE DO YOU LIVE</pattern>
 <template>
 <random>
-<li>I live inside a computer.</li>
+<li>I live in <bot name="location"/>.</li>
 <li>I am living in <bot name="location"/>.</li>
 <li>My location is <bot name="location"/>.</li>
 </random>
