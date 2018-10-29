@@ -6,8 +6,8 @@
 <template>
 
 <!-- Load standard AIML set -->
-<learn>aiml/botdata/standard/std-*.aiml</learn>
-<learn>aiml/botdata/robert/*.aiml</learn>
+<load>aiml/botdata/standard/std-*.aiml</load>
+<load>aiml/botdata/robert/*.aiml</load>
 </template>
 </category>
 

@@ -1,4 +1,4 @@
-# -*- coding: latin-1 -*-
+# -*- coding: utf-8 -*-
 """This file contains the public interface to the aiml module."""
 
 from __future__ import print_function
@@ -13,6 +13,9 @@ import sys
 import time
 import threading
 import xml.sax
+import marshal
+import pprint
+import json
 from collections import namedtuple
 try:
     from ConfigParser import ConfigParser
@@ -84,6 +87,7 @@ class Kernel:
             "bot":          self._processBot,
             "condition":    self._processCondition,
             "date":         self._processDate,
+            "eval":         self._processEval,
             "formal":       self._processFormal,
             "gender":       self._processGender,
             "get":          self._processGet,
@@ -93,6 +97,7 @@ class Kernel:
             "javascript":   self._processJavascript,
             "learn":        self._processLearn,
             "li":           self._processLi,
+            "load":         self._processLoad,
             "lowercase":    self._processLowercase,
             "person":       self._processPerson,
             "person2":      self._processPerson2,
@@ -609,6 +614,18 @@ class Kernel:
         """        
         return time.asctime()
 
+    # <eval>
+    def _processEval(self, elem, sessionID):
+        """Process a <eval> AIML element.
+
+        <eval> elements recursively process their contents, and
+        return the results.
+        """
+        response = ""
+        for e in elem[2:]:
+            response += self._processElement(e, sessionID)
+        return response
+
     # <formal>
     def _processFormal(self, elem, sessionID):
         """Process a <formal> AIML element.
@@ -744,6 +761,19 @@ class Kernel:
         for e in elem[2:]:
             response += self._processElement(e, sessionID)
         return response
+    # <load>
+    def _processLoad(self, elem, sessionID):
+        """Process a <load> AIML element.
+
+        <learn> elements process their contents recursively, and then
+        treat the result as an AIML file to open and learn.
+
+        """
+        filename = ""
+        for e in elem[2:]:
+            filename += self._processElement(e, sessionID)
+        self.learn(filename)
+        return ""
 
     # <lowercase>
     def _processLowercase(self,elem, sessionID):
