@@ -12,6 +12,8 @@ from std_msgs.msg import String
 import aiml
 import sys
 from googletrans import Translator
+import unidecode
+import unicodedata
 
 class Mike_Chat():
 
@@ -32,10 +34,10 @@ class Mike_Chat():
         # Create the sound client object
         self.soundhandle = SoundClient()
 
-	self.translator = Translator(service_urls=[
-      	'translate.google.com',
-      	'translate.google.com.pr',
-    	])
+        self.translator = Translator(service_urls=[
+            'translate.google.com',
+            'translate.google.com.pr',
+        ])
         
         # Wait a moment to let the client connect to the
         # sound_play server
@@ -45,26 +47,16 @@ class Mike_Chat():
         self.soundhandle.stopAll()
 
         while not self.brainLoaded:
-	    if self.forceReload or (len(sys.argv) >= 2 and sys.argv[1] == "reload"):
-		    # Use the Kernel's bootstrap() method to initialize the Kernel. The
-		    # optional learnFiles argument is a file (or list of files) to load.
-		    # The optional commands argument is a command (or list of commands)
-		    # to run after the files are loaded.
-                    #self.kern.setBotPredicate(name. robbie)
-		    self.kern.bootstrap(learnFiles="rob-startup.xml", commands="load aiml b")
-		    self.brainLoaded = True
-		    # Now that we've loaded the brain, save it to speed things up for
-		    # next time.
-		    self.kern.saveBrain("bot.brn")
-	    else:
-		    # Attempt to load the brain file.  If it fails, fall back on the Reload
-		    # method.
-		    try:
-			    # The optional branFile argument specifies a brain file to load.
-			    self.kern.bootstrap(brainFile = "bot.brn")
-			    self.brainLoaded = True
-		    except:
-			    self.forceReload = True
+            if self.forceReload or (len(sys.argv) >= 2 and sys.argv[1] == "reload"):
+                self.kern.bootstrap(learnFiles="rob-startup.xml", commands="load aiml b")
+                self.brainLoaded = True
+                self.kern.saveBrain("bot.brn")
+            else:
+                try:
+                    self.kern.bootstrap(brainFile = "bot.brn")
+                    self.brainLoaded = True
+                except:
+                    self.forceReload = True
 
 
         
@@ -73,17 +65,24 @@ class Mike_Chat():
 
 
     def speak_text(self, text):
-        print text.data
+        print (text.data)
         trntext= self.translator.translate(text.data, dest='en', src='auto')
-	print trntext.text
-	#rospy.sleep(1)
-	totrntext=self.kern.respond(trntext.text)
-	#rospy.sleep(1)
-	print totrntext
-	resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
-	#rospy.sleep(1)
-	print resptext.text
-        self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
+        print (trntext.text)
+        totrntext=self.kern.respond(trntext.text)
+        print (totrntext)
+        resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
+        resptext = resptext.text 
+        try:
+            resptext = unicode(resptext, 'utf-8')
+        except (TypeError, NameError): # unicode is a default on python 3 
+            pass
+        resptext = unicodedata.normalize('NFD', resptext)
+        resptext = resptext.encode('ascii', 'ignore')
+        resptext = resptext.decode("utf-8")
+        print (str(resptext))
+        #self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
+        #self.soundhandle.say(resptext.text, self.voice)
+        self.soundhandle.say(str(resptext), self.voice)
 
 
 
