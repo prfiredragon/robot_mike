@@ -18,7 +18,7 @@ import unicodedata
 class Mike_Chat():
 
     def __init__(self):
-        rospy.init_node('robbie_chat_node', anonymous=True)
+        rospy.init_node('mike_chat_node', anonymous=True)
         self.kern = aiml.Kernel()
         self.kern.setBotPredicate("name","mike")
         self.kern.setBotPredicate("location","Puerto Rico")

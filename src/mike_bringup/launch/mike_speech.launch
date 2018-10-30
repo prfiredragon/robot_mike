@@ -10,6 +10,7 @@
   <node pkg="mike_speech" type="mike_chat.py" name="mike_chat" cwd="node"  output="screen" />
 
 
+  <node pkg="mike_speech" type="mike_listen.py" name="mike_listen" cwd="node"  output="screen" />
 
  
 
