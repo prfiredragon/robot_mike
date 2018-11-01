@@ -29,6 +29,8 @@ class Mike_Chat():
         self.forceReload = False
         # Set the default TTS voice to use
         #self.voice = rospy.get_param("~voice", "voice_en1_mbrola")
+        self.voice_es = "voice_el_diphone"
+        self.voice_en = "voice_en1_mbrola"
         self.voice = rospy.get_param("~voice", "voice_el_diphone")
         self.speech_lang = rospy.get_param("~speech_lang", "es")
         self.robot = rospy.get_param("~robot", "mike")
@@ -77,8 +79,10 @@ class Mike_Chat():
         else:
             trntext= self.translator.translate(text.data, dest='en', src='auto')
             print (trntext.text)
+            #print(trntext.src)
+            self.speech_lang = trntext.src
             totrntext=self.kern.respond(trntext.text)
-            print (totrntext)
+            #print (totrntext)
             resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
             resptext = resptext.text 
             try:
@@ -91,7 +95,12 @@ class Mike_Chat():
             print (str(resptext))
             #self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
             #self.soundhandle.say(resptext.text, self.voice)
-            self.soundhandle.say(str(resptext), self.voice)
+            if self.speech_lang == "en":
+                self.soundhandle.say(str(resptext), self.voice_en)
+            elif self.speech_lang == "es":
+                self.soundhandle.say(str(resptext), self.voice_es)
+            else:
+                self.soundhandle.say(str(resptext), self.voice)
 
 
 
