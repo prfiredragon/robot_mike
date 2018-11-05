@@ -60,10 +60,28 @@ class Mike_Chat():
                     self.brainLoaded = True
                 except:
                     self.forceReload = True
-
-
         
         rospy.Subscriber('/speech_text', String, self.speak_text)
+
+
+    def strip_accents(text):
+        """
+        Strip accents from input String.
+
+        :param text: The input string.
+        :type text: String.
+
+        :returns: The processed String.
+        :rtype: String.
+        """
+        try:
+            text = unicode(text, 'utf-8')
+        except (TypeError, NameError): # unicode is a default on python 3 
+            pass
+        text = unicodedata.normalize('NFD', text)
+        text = text.encode('ascii', 'ignore')
+        text = text.decode("utf-8")
+        return str(text)
 
 
 
@@ -84,14 +102,7 @@ class Mike_Chat():
             totrntext=self.kern.respond(trntext.text)
             #print (totrntext)
             resptext=self.translator.translate(totrntext, dest=self.speech_lang, src='auto')
-            resptext = resptext.text 
-            try:
-                resptext = unicode(resptext, 'utf-8')
-            except (TypeError, NameError): # unicode is a default on python 3 
-                pass
-            resptext = unicodedata.normalize('NFD', resptext)
-            resptext = resptext.encode('ascii', 'ignore')
-            resptext = resptext.decode("utf-8")
+            resptext = strip_accents(resptext.text)
             print (str(resptext))
             #self.soundhandle.say(resptext.text.encode('ascii','ignore').decode('ascii'), self.voice)
             #self.soundhandle.say(resptext.text, self.voice)
